@@ -1,0 +1,48 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+  mongo-database-instance:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 1234
+  mongo-viewer:
+    image: mongo-express
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo-database-instance
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: 1234
+      ME_CONFIG_BASICAUTH_USERNAME: test
+      ME_CONFIG_BASICAUTH_PASSWORD: tests
+    ports:
+      - 3015:8081
+  apm-server:
+    image: store/elastic/apm-server:7.4.0
+    environment:
+      - output.elasticsearch.hosts=["elasticsearch:9200"]
+    ports:
+      - 8200:8200
+  elasticsearch:
+    image: elasticsearch:7.4.0
+    environment:
+      - discovery.type=single-node
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - 9200:9200
+      - 9300:9300
+  kibana:
+    image: kibana:7.4.0
+    ports:
+      - 5601:5601
+  express-server:
+    build: ./flat-mat-server
+    ports:
+      - 8080:8080
+    volumes:
+      - ./flat-mat-server:/usr/src/app
