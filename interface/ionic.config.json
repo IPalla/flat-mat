@@ -1,0 +1,7 @@
+{
+  "name": "flat-mat-4",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

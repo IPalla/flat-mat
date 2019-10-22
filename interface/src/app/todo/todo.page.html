@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Todo
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <ion-item *ngIf="isChecked" color="success">
+      <ion-checkbox slot="start" [(ngModel)]="isChecked" (click)="e()"></ion-checkbox>
+      <ion-label>Limpiar baño</ion-label>
+      <ion-button slot="end" color="danger">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-item>
+
+    <ion-item *ngIf="!isChecked">
+      <ion-checkbox slot="start" [(ngModel)]="isChecked" (click)="e()"></ion-checkbox>
+      <ion-label>Limpiar baño</ion-label>
+      <ion-button slot="end" color="danger">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
