@@ -46,3 +46,11 @@ services:
       - 8080:8080
     volumes:
       - ./flat-mat-server:/usr/src/app
+  # ionic-interface:
+  #   build: ./interface
+  #   ports:
+  #     - 4042:4042
+  #     - 4200:4200
+  #     - 8100:8100
+  #     - 35729:35729
+  #     - 53703:53703

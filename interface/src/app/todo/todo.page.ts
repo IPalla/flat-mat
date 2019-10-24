@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-Todo',
-  templateUrl: 'Todo.page.html',
-  styleUrls: ['Todo.page.scss']
+  selector: 'app-todo',
+  templateUrl: 'todo.page.html',
+  styleUrls: ['todo.page.scss']
 })
 export class TodoPage {
   isChecked: boolean;

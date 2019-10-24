@@ -1,38 +1,24 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
-var mongoDB = require('../config/mongo-db');
-// Define schema
-var Schema = mongoose.Schema;
-
-var SomeModelSchema = new Schema({
-  name: String
-});
-
-// Compile model from schema
-var SomeModel = mongoose.model('SomeModel', SomeModelSchema );
-
+var usersService = require('../services/users');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  usersService.getAllUsers().then(usrs=>res.send(usrs));
 });
 
 // Create new user
-router.post('/:name', (req, res, next) => {
-  console.log('Adding user ' + req.params.name);
-  new SomeModel({name: req.params.name}).save((err, usr)=>{
-    if (err)
-      next(err);
-  res.send(usr);
+router.post('/', (req, res, next) => {
+  console.log('Adding user ' + req.body);
+  usersService.insertUser(req.body).then(usr=>{
+      res.status(usr === undefined ? 500 : 200).send(usr);
   });
 });
 
 // Get user by id
 router.get('/:userId', (req, res, next) => {
-  SomeModel.findById(req.params.userId, (err, usr)=>{
-    if (err)
-      next(err);
-    res.send(usr);
+  usersService.getUserById(req.params.userId).then(usr=>{
+    console.log('User is: ' + usr);
+    res.status(usr === undefined ? 404 : 200).send(usr);
   });
 });
 
