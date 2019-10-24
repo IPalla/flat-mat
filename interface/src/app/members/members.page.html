@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Members
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item button (click)="presentActionSheet({number: '+34690690690', name: 'Ignacio Pallarés'})">
+      <!-- *ngFor="let i of numbers"-->
+      <ion-thumbnail class="ion-margin-start" slot="start">
+        <img src="../../assets/imgs/foto.jpg" style="border-radius: 50%">
+      </ion-thumbnail>
+      <ion-label>
+        <h2>Ignacio Pallarés</h2>
+        <p>nachopallaj@gmail.com</p>
+        <p>+34690690690</p>
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="presentAddUserPrompt()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,5 @@
+[
+    {"id": "1", "name": "Ignacio Pallarés", "email": "nachopallaj@gmail.com", "phone": "690690690", "photo": "../assets/imgs/foto.jpg"},
+    {"id": "2", "name": "Ignacio Martínez", "email": "ignaciomg15@gmail.com", "phone": "691691691", "photo": ""},
+    {"id": "3", "name": "Javier Bombilla", "email": "javitobouni@gmail.com", "phone": "690690691", "photo": ""}
+]
