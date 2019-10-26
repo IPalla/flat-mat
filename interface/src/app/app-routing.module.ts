@@ -7,7 +7,8 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   { path: 'new-expense', loadChildren: './new-expense/new-expense.module#NewExpensePageModule' },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' }
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+  { path: 'google-redirect', loadChildren: './goole-redirect/goole-redirect.module#GooleRedirectPageModule' }
 ];
 @NgModule({
   imports: [

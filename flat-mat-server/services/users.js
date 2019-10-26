@@ -1,4 +1,4 @@
-const UserSchema = require('../model/users');
+const userModel = require('../model/users');
 const elasticService = require('../config/elastic-setup');
 
 function getUserById(userId){
@@ -9,20 +9,24 @@ function getUserById(userId){
     });
 }
 
-function insertUser(user){
-    return new UserSchema(user).save().then((usr, err)=>{
-        if (err) return undefined;
+function insertGoogleUser(googleUser){
+    return userModel.insertUser(googleUser.name, googleUser.picture, googleUser.email, undefined, googleUser.id).then(usr=>{
         elasticService.newUserAdded(usr);
         return usr;
     });
 }
 
+function findGoogleUser(googleId){
+    return userModel.getUserByGoogleId(googleId);
+}
+
 function getAllUsers(){
-    return elasticService.getAllUsers();
+    return userModel.findAllUsers();
 }
 
 module.exports = {
     getUserById,
-    insertUser,
+    findGoogleUser,
+    insertGoogleUser,
     getAllUsers
 }

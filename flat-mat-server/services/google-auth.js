@@ -5,9 +5,9 @@ const fetch = require('node-fetch');
 const googUrl = {
     url: "https://accounts.google.com/o/oauth2/v2/auth",
     client_id: '266429742545-9tvej5149gs8qrb07avvl3793ej3eqft.apps.googleusercontent.com',
-    redirect_uri: 'http://localhost:4200/auth/google-redirect',
+    redirect_uri: 'http://localhost:4200/google-redirect',
     response_type: 'token',
-    scope: 'profile',
+    scope: 'profile+email',
     state: 'todefine'
 };
 
@@ -16,7 +16,7 @@ function getGoogleOauthConsentUrl(){
         + '&response_type=' + googUrl.response_type + '&scope=' + googUrl.scope + '&state=' + googUrl.state;
 }
 
-async function getProfileInfoFromToken(token){
+function getProfileInfoFromToken(token){
     console.log('Requesting google for token: ' + token)
     const reqOptns = {
         method: 'GET',
@@ -24,7 +24,8 @@ async function getProfileInfoFromToken(token){
             'Authorization': 'Bearer ' + token
         }
     }
-    return https.get('https://www.googleapis.com/userinfo/v2/me', reqOptns).then(res=>res.json()).catch(err=>{console.log(err); return err;});
+    return fetch('https://www.googleapis.com/userinfo/v2/me', reqOptns)
+        .then(res => res.json());
 }
 
 module.exports = { getGoogleOauthConsentUrl, getProfileInfoFromToken };

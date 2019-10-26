@@ -3,8 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-// const cookieSession = require('cookie-session');
-// const passport = require('passport');
+var cors = require('cors');
 const authRoutes = require('./routes/authentication');
 
 // const passportSetup = require('./config/passport-setup');
@@ -38,6 +37,7 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 // app.use('/', indexRouter);
 app.use('/auth', authRoutes);

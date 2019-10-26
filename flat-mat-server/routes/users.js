@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var usersService = require('../services/users');
+var jwtokens = require('../middleware/jwtokens');
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', jwtokens.authRequest ,function(req, res, next) {
   usersService.getAllUsers().then(usrs=>res.send(usrs));
 });
 
