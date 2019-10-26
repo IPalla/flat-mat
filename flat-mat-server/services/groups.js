@@ -1,22 +1,14 @@
-const GroupSchema = require('../model/groups');
+const groupModel = require('../model/groups');
 
-function getGroupById(groupId){
-    console.log('Getting Group: ' + groupId);
-    return GroupSchema.findById(groupId).populate('users').then((grp, err)=>{
-        if (err) return undefined;
-        return grp;
-    });
+function getUserGroups(userId){
+     return groupModel.getUserGroups(userId);
 }
 
 function createGroup(groupName, adminId){
-    return new GroupSchema({name: groupName, admin: adminId, users: [adminId]})
-    .save().then((grp, err)=>{
-        if (err) return undefined;
-        return grp;
-    });
+    return groupModel.createGroup(groupName, adminId);
 }
 
 module.exports = {
-    getGroupById,
+    getUserGroups,
     createGroup
 }

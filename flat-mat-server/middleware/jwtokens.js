@@ -2,6 +2,8 @@ var jwt = require('jsonwebtoken');
 const privateKey = 'thisismyverysecretkeyAh';
 
 function generateToken(data){
+    console.log('Generating token with data::');
+    console.log(data);
     return jwt.sign({data}, privateKey, { expiresIn: '1h' });
 }
 

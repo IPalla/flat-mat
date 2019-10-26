@@ -1,19 +1,20 @@
 var express = require('express');
 var router = express.Router();
 var groupsService = require('../services/groups');
+var jwtokens = require('../middleware/jwtokens');
 
-// Create new user
-router.post('/', (req, res, next) => {
-  groupsService.createGroup(req.body.groupName, req.body.userId).then(grp=>{
+// Create new group
+router.post('/', jwtokens.authRequest, (req, res, next) => {
+  groupsService.createGroup(req.body.groupName, req.decoded._id).then(grp=>{
       res.status(grp === undefined ? 500 : 200).send(grp);
   });
 });
 
-// Get user by id
-router.get('/:groupId', (req, res, next) => {
-  groupsService.getGroupById(req.params.groupId).then(grp=>{
-    console.log('group is: ' + grp);
-    res.status(grp === undefined ? 404 : 200).send(grp);
+// Get user groups
+router.get('/', jwtokens.authRequest, (req, res, next) => {
+  console.log(req.decoded);
+  groupsService.getUserGroups(req.decoded._id).then(grps=>{
+    res.status(grps === undefined ? 204 : 200).send(grps);
   });
 });
 
